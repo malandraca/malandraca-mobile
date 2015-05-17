@@ -1,1 +1,44 @@
 /* Empty. Add your own CSS if you like */
+
+html *
+{
+   font-family: LatoRegular !important;
+}
+
+.platform-ios.platform-cordova:not(.fullscreen) .search-bar {
+    margin-top: 20px;
+}
+
+.foo{
+    height: 70px !important;
+}
+
+.scroll-content {
+    background: url("../images/fondo_gordo_polaco-01.png") no-repeat center center fixed;  
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+}
+
+.logo-img img{
+    max-width: 100%;
+    margin-top: 50px;
+}
+
+.logo-text{
+    font: Lato;
+    text-align: center;
+}
+
+.logo-text h1, .logo-text h2{
+    font-family: LatoBold !important;
+    color: #fff;
+}
+
+.range input{
+    height: 30px;
+}
+
+.play{
+  font-size: 20px;
+}

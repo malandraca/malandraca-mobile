@@ -1,5 +1,5 @@
 {
-  "name": "Mobile",
+  "name": "MalandracaMobile",
   "version": "0.0.0",
   "private": true,
   "dependencies": {},
@@ -55,6 +55,18 @@
     "com.ionic.keyboard",
     "org.apache.cordova.device",
     "org.apache.cordova.console",
-    "com.ionic.keyboard"
+    "com.ionic.keyboard",
+    "org.apache.cordova.console",
+    "org.apache.cordova.splashscreen",
+    "org.apache.cordova.device",
+    "org.apache.cordova.console",
+    "com.ionic.keyboard",
+    "org.apache.cordova.splashscreen"
+  ],
+  "cordovaPlatforms": [
+    {
+      "platform": "android",
+      "locator": "./engine/cordova-android-c0.6.1/"
+    }
   ]
 }
