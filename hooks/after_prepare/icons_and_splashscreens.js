@@ -20,7 +20,7 @@ var Orchestrator = require('orchestrator');
 
 var BASES = {
   android: 'res',
-  ios: 'MalandracaMobile/Resources'
+  ios: 'Malandraca/Resources'
 };
 var RESOURCE_DIR = 'resources';
 
