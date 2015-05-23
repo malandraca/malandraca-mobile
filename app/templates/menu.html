@@ -34,8 +34,8 @@
 </ion-side-menus>
 
 
-<div class="bar bar-footer bar-dark">
-        <button class="button button-clear" ng-click="onTap()"><i class="icon ion-play play" ></i>
+<div class="bar bar-footer bar-dark" ng-controller="AppCtrl">
+        <button class="button button-clear" ng-click="onTap()"><i class="icon" ng-class="player.classToButton" ></i>
         </button>
         <div class="title">
             Some data

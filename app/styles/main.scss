@@ -22,3 +22,10 @@ $ionicons-font-path: "../fonts" !default;
 $positive: #057b6c !default;
 // Include all of Ionic.
 @import "../bower_components/ionic/scss/ionic";
+
+#volume.popup{
+    height: 50px;
+    width: 200px;
+    background-color: $dark;
+    
+}
