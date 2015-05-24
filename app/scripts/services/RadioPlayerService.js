@@ -8,7 +8,7 @@
  * Service in the malandracaSiteApp.
  */
 angular.module('malandraca')
-  .factory('radioPlayerService', ['$cordovaMedia', '$window', '$ionicLoading', '$http', 'MAIN_STREAM', function ($cordovaMedia, $window,$ionicLoading, $http, MAIN_STREAM) {
+  .factory('radioPlayerService', ['$rootScope', '$cordovaMedia', '$window', '$ionicLoading', '$http', 'MAIN_STREAM', function ($rootScope, $cordovaMedia, $window,$ionicLoading, $http, MAIN_STREAM) {
         var volume = 50,
             media,
             isPlaying = false;
@@ -21,7 +21,7 @@ angular.module('malandraca')
                 
                 try{
 
-                if(angular.isDefined(media)){
+                if(angular.isDefined(media) && media != null){
                     if(ionic.Platform.isIOS()){
                         var iOSPlayOptions = {
                             //numberOfLoops: 2,
@@ -31,28 +31,31 @@ angular.module('malandraca')
                     }else{
                         media.play();             
                     }
-                    isPlaying = true;
                 }else{
                    
-                    media = $cordovaMedia.newMedia(MAIN_STREAM.url);
-                    media.then(function(r) {
+                    media = new Media(MAIN_STREAM.url,
+                        // success callback
+                        function() {
+                            console.log("strartRadio():Audio Success");
+                        },
 
-                        console.log('success');
-                        console.log(r);
-                        isPlaying = true;
-                    }, function (r) {
-                        console.log('error');
-                        console.log(r);
-                        isPlaying = false;
-                    },
-                       function (status){
+                        // error callback
+                        function(err) {
+                            console.log("strartRadio():Audio Error: "+ err.code);
+                        },
+                                             
+                        // status callback
+                        function(status) {
+                            $rootScope.$broadcast('radio-state-change', status);
+                        
                             if( status==Media.MEDIA_RUNNING ) {
                                 isPlaying = true;
                             }else{
                                 isPlaying = false;
                             }
-                        }          
+                        }                  
                     );
+
                     if(ionic.Platform.isIOS()){
                         var iOSPlayOptions = {
                             //numberOfLoops: 2,
@@ -62,7 +65,6 @@ angular.module('malandraca')
                     }else{
                         media.play();             
                     }
-                    isPlaying = true;
                 }
                     
                 } catch (e){
@@ -82,11 +84,11 @@ angular.module('malandraca')
                 volume = newVolume;
             },
             stop: function(){
-                if(angular.isDefined(media)){
+                if(angular.isDefined(media) && media !== null){
                     media.stop();
-                    isPlaying = false;
+                    media.release();
+                    media = null;
                 }
-                isPlaying = false;
             },
             isPlaying: function(){
                  return isPlaying;

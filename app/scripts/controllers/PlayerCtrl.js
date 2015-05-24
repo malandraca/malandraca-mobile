@@ -15,6 +15,7 @@ angular.module('malandraca')
     $scope.player = { 
         volume:50,
         playing: false,
+        playButtonClass: 'ion-play play',
         programTitle: ''
     };
     
@@ -23,11 +24,13 @@ angular.module('malandraca')
     });
     
     $scope.play = function(){
+        $scope.player.playButtonClass = 'ion-android-more-horizontal';
         radioPlayerService.play();
         $scope.refreshPlayerStatus();
     };
     
     $scope.stop = function(){
+        $scope.player.playButtonClass = 'ion-play play';
         radioPlayerService.stop();
         $scope.refreshPlayerStatus();
     };
@@ -60,9 +63,21 @@ angular.module('malandraca')
             error(function(data, status, headers, config) {
                 console.log("ERROR: Could not get data.");
             });
-    }
+    };
+    
+    $scope.$on('radio-state-change', function(event, status) {
+        
+        if( status==Media.MEDIA_RUNNING ) {
+            $scope.player.playButtonClass = 'ion-stop';
+        } else if( status==Media.MEDIA_STARTING ) {
+             $scope.player.playButtonClass = 'ion-android-more-horizontal';
+        } else{
+            $scope.player.playButtonClass = 'ion-play';  
+        }
+        $scope.refreshPlayerStatus();
+    });
 
-    $interval( function(){ $scope.refreshPlayingData(); }, 1000);
+    $interval( function(){ $scope.refreshPlayingData(); }, 3000);
     
     $ionicPopover.fromTemplateUrl('templates/volume-popover.html', {
         scope: $scope
