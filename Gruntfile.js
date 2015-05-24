@@ -36,8 +36,8 @@ module.exports = function (grunt) {
       options: {
         space: '  ',
         wrap: '"use strict";\n\n {%= __ngModule %}',
-        name: 'config',
-        dest: '<%= yeoman.app %>/<%= yeoman.scripts %>/configuration.js'
+        name: 'malandraca',
+        dest: '<%= yeoman.app %>/<%= yeoman.scripts %>/configs/config.js'
       },
       development: {
         constants: {

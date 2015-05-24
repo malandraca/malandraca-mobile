@@ -8,7 +8,7 @@
  * Service in the malandracaSiteApp.
  */
 angular.module('malandraca')
-  .factory('radioPlayerService', ['$cordovaMedia', '$window', '$ionicLoading', 'MAIN_STREAM', function ($cordovaMedia, $window,$ionicLoading, MAIN_STREAM) {
+  .factory('radioPlayerService', ['$cordovaMedia', '$window', '$ionicLoading', '$http', 'MAIN_STREAM', function ($cordovaMedia, $window,$ionicLoading, $http, MAIN_STREAM) {
         var volume = 50,
             media,
             isPlaying = false;
@@ -69,17 +69,6 @@ angular.module('malandraca')
                     console.log(e);
                 }
                 $ionicLoading.hide();
-            },
-            internalPlay: function(){
-                if(ionic.Platform.isIOS()){
-                    var iOSPlayOptions = {
-                        numberOfLoops: 2,
-                        playAudioWhenScreenIsLocked : false
-                    };
-                    media.play(iOSPlayOptions);
-                }else{
-                    media.play();             
-                }
             },
             getVolume: function(){
                 return volume;

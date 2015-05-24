@@ -23,9 +23,9 @@ $positive: #057b6c !default;
 // Include all of Ionic.
 @import "../bower_components/ionic/scss/ionic";
 
-#volume.popup{
-    height: 50px;
-    width: 200px;
+#volume.popover {
+    height: 65px;
+    width: 250px;
     background-color: $dark;
-    
+    color: $light;
 }
