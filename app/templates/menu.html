@@ -19,9 +19,9 @@
         <ion-content>
             <ion-list>
 
-                <ion-item class="item-icon-left" menu-close href="#/app/news">
+               <!-- <ion-item class="item-icon-left" menu-close href="#/app/news">
                     <i class="icon ion-star"></i>News
-                </ion-item>
+                </ion-item>-->
                 <ion-item class="item-icon-left" menu-close href="#/app/radio">
                     <i class="icon ion-radio-waves"></i>Radio
                 </ion-item>
@@ -40,7 +40,7 @@
             </i>
         </button>
         <div class="title">
-            <span>{{ player.programTitle | limitTo:20 }}...</span>
+            <span>{{ player.programTitle | limitTo:20 }}</span>
         </div>
         <button class="button button-clear" ng-click="openPopover($event)">
             <i class="icon ion-volume-medium"></i>

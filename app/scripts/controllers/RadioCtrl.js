@@ -10,7 +10,10 @@
 
 angular.module('malandraca')
 
-.controller('RadioCtrl', ['$scope', function ($scope) {
-
+.controller('RadioCtrl', ['$rootScope', '$scope', function ($rootScope, $scope) {
+    
+    $scope.$on('radio-song-change', function(event, song) {
+        $scope.currentSong = song;
+    });
     
 }]);

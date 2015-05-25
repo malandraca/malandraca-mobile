@@ -10,13 +10,21 @@
 
 angular.module('malandraca')
 
-.controller('PlayerCtrl', ['$scope', '$ionicPopover', '$interval', '$http', 'radioPlayerService', function ($scope, $ionicPopover, $interval, $http, radioPlayerService) {
+.controller('PlayerCtrl', ['$rootScope','$scope', '$ionicPopover', '$interval', '$http', 'radioPlayerService', function ($rootScope, $scope, $ionicPopover, $interval, $http, radioPlayerService) {
 
     $scope.player = { 
         volume:50,
         playing: false,
         playButtonClass: 'ion-play play',
-        programTitle: ''
+        programTitle: 'DJ Furia',
+        currentSong: {
+            title: 'Tinta Roja',
+            artist: 'Anibal Troilo',
+            image: 'http://upload.wikimedia.org/wikipedia/commons/3/3c/Anibal_Troilo_1971.png',
+            year: '1942',
+            signer: 'Francisco Fiorentino',
+            gender: 'Tango'
+        }
     };
     
     $scope.$watch('player.volume', function() {
@@ -49,6 +57,9 @@ angular.module('malandraca')
     
     $scope.refreshPlayingData = function() {
         
+        /*$rootScope.$broadcast('radio-song-change', $scope.player.currentSong);
+        
+        
         var playingInfo = {};
         $http.jsonp('http://radio.pregonera.net:6366/stats?sid=1&json=1&callback=JSON_CALLBACK').
             success(function(data, status, headers, config) {
@@ -58,11 +69,17 @@ angular.module('malandraca')
                     var songPart = songTitle.split('|');
                     songTitle = songPart[0];
                 }
-                $scope.player.programTitle = songTitle;
+            
+                if(songTitle.indexOf('-') != -1){
+                    var artistTitlePart = songTitle.split('-');
+                    $scope.player.currentSong.artist = artistTitlePart[0];
+                    $scope.player.currentSong.title = songPart[1];
+                }
+                $rootScope.$broadcast('radio-song-change', $scope.player.currentSong);
             }).
             error(function(data, status, headers, config) {
                 console.log("ERROR: Could not get data.");
-            });
+            });*/
     };
     
     $scope.$on('radio-state-change', function(event, status) {
@@ -96,4 +113,5 @@ angular.module('malandraca')
     $scope.$on('$destroy', function() {
         $scope.volumePopover.remove();
     });
+    $rootScope.$broadcast('radio-song-change', $scope.player.currentSong);
 }]);
