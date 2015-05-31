@@ -10,7 +10,7 @@
 
 angular.module('malandraca')
 
-.controller('PlayerCtrl', ['$rootScope','$scope', '$ionicPlatform', '$ionicPopover', '$interval', '$http', 'radioPlayerService', '$localStorage', function ($rootScope, $scope, $ionicPlatform, $ionicPopover, $interval, $http, radioPlayerService, $localStorage) {
+.controller('PlayerCtrl', ['$rootScope','$scope', '$ionicPlatform', '$ionicPopover', '$interval', '$http', 'radioPlayerService', 'artistImageService', '$localStorage', function ($rootScope, $scope, $ionicPlatform, $ionicPopover, $interval, $http, radioPlayerService, artistImageService, $localStorage) {
 
     $scope.player = { 
         volume:50,
@@ -20,12 +20,11 @@ angular.module('malandraca')
         currentSong: {
             title: '',
             artist: '',
-            //image: 'http://upload.wikimedia.org/wikipedia/commons/3/3c/Anibal_Troilo_1971.png',
-            
-            image: 'http://1.bp.blogspot.com/-kV7oFxBmC9I/VLZcXmBJ2JI/AAAAAAAAPOA/DdmSijuTQvM/s1600/Di%2Bsarli-Rufino.jpg',
+            image: artistImageService.getDefaultImage(),
             year: '',
             signer: 'Francisco Fiorentino',
-            gender: 'Tango'
+            gender: 'Tango',
+            activated: false
         }
     };
     
@@ -76,6 +75,10 @@ angular.module('malandraca')
                     $scope.player.currentSong.signer = songInfoPart[2];
                     $scope.player.currentSong.year = songInfoPart[3];
                     $scope.player.currentSong.gender = songInfoPart[4];
+                    
+                    $scope.player.currentSong.image = artistImageService.get($scope.player.currentSong.artist);
+                    
+                    $scope.player.currentSong.activated = true;
                     var programTitlePart = songInfoPart[5];
                     
                     if(programTitlePart.indexOf('Program:') != -1){

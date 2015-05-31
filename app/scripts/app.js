@@ -19,10 +19,12 @@ angular.module('malandraca', ['ionic', 'ngCordova', 'ngStorage', 'gettext'])
             // org.apache.cordova.statusbar required
             StatusBar.styleDefault();
         }
-
-      $timeout(function() {
-        $cordovaSplashscreen.hide()
-      }, 5000);
+        if (window.cordova && window.cordova.plugins.splashscreen) {
+            $timeout(function() {
+                $cordovaSplashscreen.hide()
+              }, 5000);
+        }
+      
 })
 })
 
