@@ -81,7 +81,7 @@ angular.module('malandraca')
                     if(programTitlePart.indexOf('Program:') != -1){
                         $scope.player.programTitle = programTitlePart.substring( programTitlePart.indexOf(':') + 1);
                     }else{
-                        $scope.player.programTitle = Malandraca;
+                        $scope.player.programTitle = 'Offline';
                     }
                 }
                 $rootScope.$broadcast('radio-song-change', $scope.player.currentSong);
