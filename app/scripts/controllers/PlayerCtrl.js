@@ -77,7 +77,6 @@ angular.module('malandraca')
                     $scope.player.currentSong.gender = songInfoPart[4];
                     
                     $scope.player.currentSong.image = artistImageService.get($scope.player.currentSong.artist);
-                    
                     $scope.player.currentSong.activated = true;
                     var programTitlePart = songInfoPart[5];
                     
