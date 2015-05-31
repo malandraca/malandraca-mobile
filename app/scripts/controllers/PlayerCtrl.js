@@ -10,25 +10,27 @@
 
 angular.module('malandraca')
 
-.controller('PlayerCtrl', ['$rootScope','$scope', '$ionicPopover', '$interval', '$http', 'radioPlayerService', function ($rootScope, $scope, $ionicPopover, $interval, $http, radioPlayerService) {
+.controller('PlayerCtrl', ['$rootScope','$scope', '$ionicPlatform', '$ionicPopover', '$interval', '$http', 'radioPlayerService', '$localStorage', function ($rootScope, $scope, $ionicPlatform, $ionicPopover, $interval, $http, radioPlayerService, $localStorage) {
 
     $scope.player = { 
         volume:50,
         playing: false,
         playButtonClass: 'ion-play play',
-        programTitle: 'DJ Furia',
+        programTitle: 'Malandraca',
         currentSong: {
-            title: 'Tinta Roja',
-            artist: 'Anibal Troilo',
-            image: 'http://upload.wikimedia.org/wikipedia/commons/3/3c/Anibal_Troilo_1971.png',
-            year: '1942',
+            title: '',
+            artist: '',
+            //image: 'http://upload.wikimedia.org/wikipedia/commons/3/3c/Anibal_Troilo_1971.png',
+            
+            image: 'http://1.bp.blogspot.com/-kV7oFxBmC9I/VLZcXmBJ2JI/AAAAAAAAPOA/DdmSijuTQvM/s1600/Di%2Bsarli-Rufino.jpg',
+            year: '',
             signer: 'Francisco Fiorentino',
             gender: 'Tango'
         }
     };
     
     $scope.$watch('player.volume', function() {
-        radioPlayerService.setVolume($scope.player.volume);
+        radioPlayerService.setVolume($scope.player.volume/100);
     });
     
     $scope.play = function(){
@@ -57,7 +59,6 @@ angular.module('malandraca')
     
     $scope.refreshPlayingData = function() {
         
-        /*$rootScope.$broadcast('radio-song-change', $scope.player.currentSong);
         
         
         var playingInfo = {};
@@ -65,21 +66,29 @@ angular.module('malandraca')
             success(function(data, status, headers, config) {
                 playingInfo = data;
                 var songTitle = playingInfo.songtitle;
-                if(songTitle.indexOf('|') != -1){
-                    var songPart = songTitle.split('|');
-                    songTitle = songPart[0];
-                }
             
-                if(songTitle.indexOf('-') != -1){
-                    var artistTitlePart = songTitle.split('-');
-                    $scope.player.currentSong.artist = artistTitlePart[0];
-                    $scope.player.currentSong.title = songPart[1];
+                if(songTitle.indexOf('Program:') != -1){
+                    var songInfoPart = songTitle.split('|');
+                    
+                    
+                    $scope.player.currentSong.artist = songInfoPart[0];
+                    $scope.player.currentSong.title = songInfoPart[1];
+                    $scope.player.currentSong.signer = songInfoPart[2];
+                    $scope.player.currentSong.year = songInfoPart[3];
+                    $scope.player.currentSong.gender = songInfoPart[4];
+                    var programTitlePart = songInfoPart[5];
+                    
+                    if(programTitlePart.indexOf('Program:') != -1){
+                        $scope.player.programTitle = programTitlePart.substring( programTitlePart.indexOf(':') + 1);
+                    }else{
+                        $scope.player.programTitle = Malandraca;
+                    }
                 }
                 $rootScope.$broadcast('radio-song-change', $scope.player.currentSong);
             }).
             error(function(data, status, headers, config) {
                 console.log("ERROR: Could not get data.");
-            });*/
+            });
     };
     
     $scope.$on('radio-state-change', function(event, status) {
@@ -114,4 +123,18 @@ angular.module('malandraca')
         $scope.volumePopover.remove();
     });
     $rootScope.$broadcast('radio-song-change', $scope.player.currentSong);
+   
+    
+    $scope.$storage = $localStorage.$default({
+        autoStartRadio: false
+    });
+    
+    $ionicPlatform.ready(function () {
+   
+      if($scope.$storage.autoStartRadio === true){
+        $scope.play();
+      };
+    });
 }]);
+
+

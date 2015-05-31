@@ -9,7 +9,7 @@
  */
 angular.module('malandraca')
   .factory('radioPlayerService', ['$rootScope', '$cordovaMedia', '$window', '$ionicLoading', '$http', 'MAIN_STREAM', function ($rootScope, $cordovaMedia, $window,$ionicLoading, $http, MAIN_STREAM) {
-        var volume = 50,
+        var volume = 0.5,
             media,
             isPlaying = false;
       
@@ -24,9 +24,9 @@ angular.module('malandraca')
                 if(angular.isDefined(media) && media != null){
                     if(ionic.Platform.isIOS()){
                         var iOSPlayOptions = {
-                            //numberOfLoops: 2,
                             playAudioWhenScreenIsLocked : false
                         };
+                        media.setVolume(volume);
                         media.play(iOSPlayOptions);
                     }else{
                         media.play();             
@@ -77,11 +77,10 @@ angular.module('malandraca')
             },
             setVolume: function(changedValue){
                 
-                var newVolume = changedValue / 100;
                 if(angular.isDefined(media)){
-                    media.setVolume(newVolume);
+                    media.setVolume(changedValue);
                 }
-                volume = newVolume;
+                volume = changedValue;
             },
             stop: function(){
                 if(angular.isDefined(media) && media !== null){

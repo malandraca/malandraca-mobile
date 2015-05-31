@@ -6,9 +6,9 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
-angular.module('malandraca', ['ionic', 'ngCordova'])
+angular.module('malandraca', ['ionic', 'ngCordova', 'ngStorage'])
 
-.run(function ($ionicPlatform) {
+.run(function ($ionicPlatform, $cordovaSplashscreen, $timeout) {
     $ionicPlatform.ready(function () {
         // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
         // for form inputs)
@@ -19,7 +19,11 @@ angular.module('malandraca', ['ionic', 'ngCordova'])
             // org.apache.cordova.statusbar required
             StatusBar.styleDefault();
         }
-    });
+
+      $timeout(function() {
+        $cordovaSplashscreen.hide()
+      }, 5000);
+})
 })
 
 .constant('MAIN_STREAM', {url:'http://stream.malandraca.com:6366/1/;'})
