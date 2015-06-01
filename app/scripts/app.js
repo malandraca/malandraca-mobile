@@ -29,6 +29,10 @@ angular.module('malandraca', ['ionic', 'ngCordova', 'ngStorage', 'gettext'])
 })
 
 .constant('MAIN_STREAM', {url:'http://stream.malandraca.com:6366/1/;'})
+.constant('IMAGE_CONFIG', {artistBaseUrl:'http://www.malandraca.com/images/artist-pictures/'})
+//.constant('DSP_URL', 'http://10.0.0.102:8080/rest/api_docs')
+//.constant('DSP_API_KEY', 'malandraca')
+
 
 .config(function ($stateProvider, $urlRouterProvider) {
     $stateProvider

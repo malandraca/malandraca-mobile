@@ -2,7 +2,7 @@
 
 angular.module('malandraca')
 
-.factory('artistImageService', function () {
+.factory('artistImageService', ['IMAGE_CONFIG', function (IMAGE_CONFIG) {
     // Might use a resource here that returns a JSON array
 
     // Some fake testing data
@@ -10,15 +10,41 @@ angular.module('malandraca')
         {
             keywords: ['Di Sarli','Rufino'],
             images: [
-                'http://1.bp.blogspot.com/-kV7oFxBmC9I/VLZcXmBJ2JI/AAAAAAAAPOA/DdmSijuTQvM/s1600/Di%2Bsarli-Rufino.jpg'
+                'disarli-rufino.jpg'
             ]
         },
         {
             keywords: ['Troilo'],
             images: [
-                'http://upload.wikimedia.org/wikipedia/commons/3/3c/Anibal_Troilo_1971.png'
+                'troilo1.png'
+            ]
+        },
+        {
+            keywords: ['Demare'],
+            images: [
+                'demare1.jpg'
+            ]
+        },
+        {
+            keywords: ['Carabelli'],
+            images: [
+                'carabelli1.jpg'
+            ]
+        },
+        {
+            keywords: ['D\'Arienzo'],
+            images: [
+                'darienzo1.jpg'
+            ]
+        },
+        {
+            keywords: ['Laurenz'],
+            images: [
+                'laurenz1.jpg'
             ]
         }
+        
+        
     ];
     
     var matchWords = function(artistName, keywords) {
@@ -35,7 +61,7 @@ angular.module('malandraca')
     };
     
     var getDefaultImage = function(){
-            return 'https://scontent-gru1-1.xx.fbcdn.net/hphotos-xpf1/v/t1.0-9/10996177_1424059727888610_8674157038219131055_n.png?oh=473fb275dd17df8610623d0f15981b6e&oe=55C1A724';
+            return IMAGE_CONFIG.artistBaseUrl + 'default.png';
     };
 
     return {
@@ -45,10 +71,10 @@ angular.module('malandraca')
             
             for (var i = 0; i < images.length; i++) {
                 if(matchWords(artistName, images[i].keywords) === true){
-                   imageSrc = images[i].images[0];
+                   imageSrc = IMAGE_CONFIG.artistBaseUrl + images[i].images[0];
                 }
             }
             return imageSrc;
         }
     };
-});
+}]);
