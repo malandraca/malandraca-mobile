@@ -10,9 +10,10 @@
 
 angular.module('malandraca')
 
-.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', '$ionicPopover', 
-                        function ($scope, $ionicModal, $timeout, $ionicPopover) {
-    // Form data for the login modal
+
+.controller('AppCtrl', ['$scope', '$state', '$location', '$ionicModal', '$timeout', '$ionicPopover', '$ionicHistory', 'loginService',
+                        function ($scope, $state, $location, $ionicModal, $timeout, $ionicPopover, $ionicHistory, loginService) {
+   /* // Form data for the login modal
     $scope.loginData = {};
 
     // Create the login modal that we will use later
@@ -25,22 +26,45 @@ angular.module('malandraca')
     // Triggered in the login modal to close it
     $scope.closeLogin = function () {
         $scope.modal.hide();
+    };*/
+
+    $ionicHistory.clearHistory();
+                            
+    $scope.login = function(authMethod) {
+        loginService.login(authMethod);
     };
-
-    // Open the login modal
-    $scope.login = function () {
-        $scope.modal.show();
+    
+    $scope.$on('user.login', function(event, user) {
+        $scope.user = user;
+        //$location.path('/app/radio');
+        $ionicHistory.nextViewOptions({
+            disableBack: true
+        });
+        $state.go('app.radio');
+    });  
+    $scope.$on('user.logout', function(event, user) {
+        $scope.user = user;
+        //$location.path('/app/radio');
+        $ionicHistory.nextViewOptions({
+            disableBack: true
+        });
+        $state.go('app.login');
+    }); 
+                            
+    
+                            
+    $scope.logout = function() {
+        loginService.logout();
     };
-
-    // Perform the login action when the user submits the login form
-    $scope.doLogin = function () {
-        console.log('Doing login', $scope.loginData);
-
-        // Simulate a login delay. Remove this and replace with your login
-        // code if using a login system
-        $timeout(function () {
-            $scope.closeLogin();
-        }, 1000);
+                            
+    $scope.showDialog = function() {
+        
+        /*facebookConnectPlugin.showDialog( { method: "feed" }, 
+                    function (response) { alert(JSON.stringify(response)) },
+                    function (response) { alert(JSON.stringify(response)) });*/
+    };
+    
+    $scope.apiTest = function() {
     };
 
 }]);

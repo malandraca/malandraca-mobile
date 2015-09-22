@@ -51,28 +51,31 @@ var platforms = _.filter(fs.readdirSync('platforms'), function (file) {
   return fs.statSync(path.resolve('platforms', file)).isDirectory();
 });
 _.each(platforms, function (platform) {
-  var base = path.resolve('platforms', platform, BASES[platform]);
-  glob(base + '/**/*.png', function (err, files) {
-    _.each(files, function (cordovaFile) {
-      var orchestrator = new Orchestrator();
-      var parts = cordovaFile.split('/');
-      var fileName = parts.pop();
-      var localDir = path.resolve(RESOURCE_DIR, platform, _.last(parts));
-      var localFile = path.resolve(localDir, fileName);
+  if(platform != 'browser'){
+      var base = path.resolve('platforms', platform, BASES[platform]);
+      glob(base + '/**/*.png', function (err, files) {
 
-      orchestrator.add('copyFromCordova', function (done) {
-        copyFile(cordovaFile, localFile, { clobber: false }, function (err) {
-          done(err);
+        _.each(files, function (cordovaFile) {
+          var orchestrator = new Orchestrator();
+          var parts = cordovaFile.split('/');
+          var fileName = parts.pop();
+          var localDir = path.resolve(RESOURCE_DIR, platform, _.last(parts));
+          var localFile = path.resolve(localDir, fileName);
+
+          orchestrator.add('copyFromCordova', function (done) {
+            copyFile(cordovaFile, localFile, { clobber: false }, function (err) {
+              done(err);
+            });
+          });
+          orchestrator.add('copyToCordova', ['copyFromCordova'], function (done) {
+            copyFile(localFile, cordovaFile, { clobber: true }, function (err) {
+              done(err);
+            });
+          });
+          orchestrator.start('copyToCordova', function (err) {
+            if (err) { console.error(err); }
+          });
         });
       });
-      orchestrator.add('copyToCordova', ['copyFromCordova'], function (done) {
-        copyFile(localFile, cordovaFile, { clobber: true }, function (err) {
-          done(err);
-        });
-      });
-      orchestrator.start('copyToCordova', function (err) {
-        if (err) { console.error(err); }
-      });
-    });
-  });
+  }
 });
