@@ -1,4 +1,11 @@
 {
   "name": "mobile",
-  "app_id": "a9a6534f"
+  "app_id": "a9a6534f",
+  "browsers": [
+    {
+      "platform": "android",
+      "browser": "crosswalk",
+      "version": "12.41.296.5"
+    }
+  ]
 }

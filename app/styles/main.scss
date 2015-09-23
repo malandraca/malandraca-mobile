@@ -19,7 +19,7 @@ $ionicons-font-path: "../fonts" !default;
 // My custom color. I’ll override the default for $positive.
 // Note that it’s before we load the rest of Ionic.
 // This is important!
-$positive: #057b6c !default;
+//$positive: #057b6c !default;
 // Include all of Ionic.
 @import "../bower_components/ionic/scss/ionic";
 
@@ -28,4 +28,67 @@ $positive: #057b6c !default;
     width: 250px;
     background-color: $dark;
     color: $light;
+}
+
+.login {
+    background: url('../images/fondo_gordo_polaco.png') no-repeat center center; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+}
+
+.logo{
+    color: #F48414;
+}
+
+.logo h1{
+    
+    color: #F48414;
+}
+
+.login-image{
+    max-width: 30%;
+    max-height: 30%;
+}
+
+.center{
+  display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-direction: normal;
+    -moz-box-direction: normal;
+    -webkit-box-orient: horizontal;
+    -moz-box-orient: horizontal;
+    -webkit-flex-direction: row;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    -webkit-flex-wrap: nowrap;
+    -ms-flex-wrap: nowrap;
+    flex-wrap: nowrap;
+    -webkit-box-pack: center;
+    -moz-box-pack: center;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-align-content: stretch;
+    -ms-flex-line-pack: stretch;
+    align-content: stretch;
+    -webkit-box-align: center;
+    -moz-box-align: center;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+
+.scroll-content {
+  display: table !important;
+  width: 100% !important;
+  height: 100% !important;
+}
+.scroll {
+  display: table-cell;
+  vertical-align: middle;
+  text-align: center;
 }

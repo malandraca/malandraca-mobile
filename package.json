@@ -53,21 +53,23 @@
   },
   "cordovaPlugins": [
     "org.apache.cordova.device",
-    "org.apache.cordova.console",
-    "com.ionic.keyboard",
-    "org.apache.cordova.device",
-    "org.apache.cordova.console",
+    "org.apache.cordova.splashscreen",
     "com.ionic.keyboard",
     "org.apache.cordova.console",
-    "org.apache.cordova.device",
-    "com.ionic.keyboard",
-    "com.ionic.keyboard",
-    "com.ionic.keyboard",
-    "com.ionic.keyboard",
+    "cordova-plugin-whitelist",
+    "org.apache.cordova.inappbrowser",
     "org.apache.cordova.console",
-    {
-      "id": "com.phonegap.plugins.facebookconnect",
-      "locator": "/Users/gaston/Desarrollo/malandraca/malandraca-mobile/plugin-src/phonegap-facebook-plugin"
-    }
+    "cordova-plugin-whitelist",
+    "org.apache.cordova.inappbrowser",
+    "com.ionic.keyboard",
+    "org.apache.cordova.splashscreen",
+    "org.apache.cordova.console",
+    "org.apache.cordova.console",
+    "org.apache.cordova.splashscreen",
+    "com.ionic.keyboard",
+    "com.ionic.keyboard"
+  ],
+  "cordovaPlatforms": [
+    "android"
   ]
 }

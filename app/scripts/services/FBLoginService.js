@@ -2,7 +2,7 @@
 
 angular.module('malandraca')
 
-.factory('loginService', ['$rootScope', '$firebaseAuth', 'FIRE_BASE_PATH', function ($rootScope, $firebaseAuth, FIRE_BASE_PATH) {
+.factory('loginService', ['$rootScope', '$firebaseAuth', '$timeout', 'FIRE_BASE_PATH', function ($rootScope, $firebaseAuth, $timeout, FIRE_BASE_PATH) {
 
     var usersRef = new Firebase(FIRE_BASE_PATH),
         fbAuth = $firebaseAuth(usersRef),
@@ -13,7 +13,7 @@ angular.module('malandraca')
             onSuccessLogin(authData);
         }).catch(function(error) {
           if (error.code === 'TRANSPORT_UNAVAILABLE') {
-            Auth.$authWithOAuthPopup(authMethod).then(function(authData) {
+            fbAuth.$authWithOAuthPopup(authMethod).then(function(authData) {
                 onSuccessLogin(authData);
             });
           } else {
