@@ -34,7 +34,7 @@ angular.module('malandraca')
         loginService.login(authMethod);
     };
     
-    $scope.$on('user.login', function(event, user) {
+    $scope.$on('user.loggedin', function(event, user) {
         $scope.user = user;
         //$location.path('/app/radio');
         $ionicHistory.nextViewOptions({
